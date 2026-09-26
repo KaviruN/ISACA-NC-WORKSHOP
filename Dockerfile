@@ -15,7 +15,9 @@ RUN apt update && apt install -y \
 # Vulnerable php
 COPY index.php /var/www/html/index.php
 
-# REmove the default index.html
+# Remove the default index.html
+
+RUN rm -rf /var/www/html/index.html
 
 RUN mkdir /var/run/sshd
 
