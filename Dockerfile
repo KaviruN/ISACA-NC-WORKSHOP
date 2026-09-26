@@ -15,6 +15,10 @@ RUN apt update && apt install -y \
 # Vulnerable php
 COPY index.php /var/www/html/index.php
 
+#Copy the robots txt
+
+COPY robots.txt /var/www/html/robots.txt
+
 # Remove the default index.html
 
 RUN rm -rf /var/www/html/index.html
