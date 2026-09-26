@@ -1,0 +1,5 @@
+# .gitignore
+notes.txt
+*.pem
+*.key
+.env
