@@ -12,14 +12,16 @@ RUN apt update && apt install -y \
     sudo \
     && apt clean
 
-# Vulnerable ping tool
+# Vulnerable php
 COPY index.php /var/www/html/index.php
+
+# REmove the default index.html
 
 RUN mkdir /var/run/sshd
 
 # --- Flag 1: reachable as soon as they get the www-data shell ---
-# Placed outside the web root so it's not viewable via HTTP, only via actual shell access
-RUN echo "ISACA{stage1_www_data_code_exec}" > /var/www/flag1.txt && chmod 644 /var/www/flag1.txt
+
+RUN echo "ISACA{USER_LFAG}" > /var/www/flag1.txt && chmod 644 /var/www/user.txt
 
 # --- Prepare root's SSH dir so www-data can append to it, but not touch anything else ---
 RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh && touch /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys
@@ -28,7 +30,7 @@ RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh && touch /root/.ssh/authorized_k
 RUN echo "www-data ALL=(root) NOPASSWD: /usr/bin/tee -a /root/.ssh/authorized_keys" >> /etc/sudoers
 
 # --- Flag 2: only reachable once they're actually root via SSH ---
-RUN echo "ISACA{stage2_root_ssh_persistence}" > /root/flag2.txt && chmod 600 /root/flag2.txt
+RUN echo "ISACA{ROOT_FLAG}" > /root/flag2.txt && chmod 600 /root/root.txt 
 
 EXPOSE 80 22
 
