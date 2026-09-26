@@ -23,7 +23,7 @@ RUN mkdir /var/run/sshd
 
 # --- Flag 1: reachable as soon as they get the www-data shell ---
 
-RUN echo "ISACA{USER_LFAG}" > /var/www/flag1.txt && chmod 644 /var/www/user.txt
+RUN echo "ISACA{USER_LFAG}" > /var/www/user.txt && chmod 644 /var/www/user.txt
 
 # --- Prepare root's SSH dir so www-data can append to it, but not touch anything else ---
 RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh && touch /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys
@@ -32,7 +32,7 @@ RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh && touch /root/.ssh/authorized_k
 RUN echo "www-data ALL=(root) NOPASSWD: /usr/bin/tee -a /root/.ssh/authorized_keys" >> /etc/sudoers
 
 # --- Flag 2: only reachable once they're actually root via SSH ---
-RUN echo "ISACA{ROOT_FLAG}" > /root/flag2.txt && chmod 600 /root/root.txt 
+RUN echo "ISACA{ROOT_FLAG}" > /root/root.txt && chmod 600 /root/root.txt 
 
 EXPOSE 80 22
 
