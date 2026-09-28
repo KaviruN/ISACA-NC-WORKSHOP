@@ -38,6 +38,15 @@ RUN echo "www-data ALL=(root) NOPASSWD: /usr/bin/tee -a /root/.ssh/authorized_ke
 # --- Flag 2: only reachable once they're actually root via SSH ---
 RUN echo "ISACA{ROOT_FLAG}" > /root/root.txt && chmod 600 /root/root.txt 
 
+# Forcuse commands to the workshop 
+
+RUN echo -e '#!/bin/bash\necho "[!] cat is disabled on this system. Find another way."' > /bin/cat && chmod +x /bin/cat
+RUN echo -e '#!/bin/bash\necho "[!] more is disabled on this system. Find another way."' > /usr/bin/more && chmod +x /usr/bin/more
+RUN echo -e '#!/bin/bash\necho "[!] less is disabled on this system. Find another way."' > /usr/bin/less && chmod +x /usr/bin/less
+RUN echo -e '#!/bin/bash\necho "[!] head is disabled on this system. Find another way."' > /usr/bin/head && chmod +x /usr/bin/head
+RUN echo -e '#!/bin/bash\necho "[!] tail is disabled on this system. Find another way."' > /usr/bin/tail && chmod +x /usr/bin/tail
+
+
 EXPOSE 80 22
 
 CMD service ssh start && apache2ctl -D FOREGROUND
